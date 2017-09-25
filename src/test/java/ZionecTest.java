@@ -27,12 +27,11 @@ public class ZionecTest {
         Configuration.savePageSource = false;
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-infobars");
-        options.addArguments("--start-maximized");
+        //options.addArguments("--start-maximized");
         options.addArguments("--disable-dev-tools");
         WebDriver myWebDriver = new ChromeDriver(options);
         WebDriverRunner.setWebDriver(myWebDriver);
         homePg = new HomePage();
-        homePg.openHomePage();
         Page.parentHandle = getWebDriver().getWindowHandle();
     }
 
@@ -109,6 +108,15 @@ public class ZionecTest {
         homePg.clickSubmitButton();
         homePg.checkUrl(Values.host);
         homePg.setMobilePhoneField("76666666666");
+        homePg.clickSubmitButton();
+        homePg.checkSuccessPageAppeared();
+    }
+
+    @Stories("Негативный")
+    @Title("Тест для проверки падения")
+    @Test(priority = 5)
+    public void checkFail() {
+        homePg.setSecondNameField(Page.getRandomString());
         homePg.clickSubmitButton();
         homePg.checkSuccessPageAppeared();
     }
